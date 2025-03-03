@@ -1,0 +1,24 @@
+# DEVELOPMENT DOCKERFILE
+# Use the official Golang image as the base image
+FROM golang:1.24
+
+# Maintainer Info
+LABEL org.opencontainers.image.authors="Jay Gaha <https://github.com/jaygaha>" \
+org.opencontainers.image.title="Golang Docker Image" \
+org.opencontainers.image.description="This is a Golang Docker Image" \
+org.opencontainers.image.source="https://github.com/jaygaha/go-docker-beginner-template"
+
+# Set the Current Working Directory inside the container
+WORKDIR /var/www/html
+
+# Copy the source from the current directory to the Working Directory inside the container
+COPY . .
+
+# Download all the dependencies
+RUN go mod tidy
+
+# Expose port 8080 to the outside world
+EXPOSE 8080
+
+# Command to run the executable
+CMD ["go", "run", "main.go"]
